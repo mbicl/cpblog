@@ -8,6 +8,7 @@ class Problem(models.Model):
     reputation = models.IntegerField()
     description = models.TextField()
     difficulty = models.IntegerField()
-
+    is_active = models.BooleanField(default=True)
+    
     def __str__(self) -> str:
         return self.title

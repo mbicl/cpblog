@@ -11,6 +11,7 @@ class Category(models.Model):
 class Comment(models.Model):
     body = models.TextField()
     reputation = models.IntegerField()
-
+    is_active = models.BooleanField(default=True)
+    
     def __str__(self) -> str:
         return " ".join(self.body.split()[:3])
