@@ -4,7 +4,6 @@ from django.contrib.auth.models import (
     BaseUserManager,
     PermissionsMixin,
 )
-import uuid
 from django.utils.translation import gettext
 
 # Create your models here.
