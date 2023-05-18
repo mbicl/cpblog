@@ -1,5 +1,10 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import (
+    AbstractBaseUser,
+    BaseUserManager,
+    PermissionsMixin,
+)
+import uuid
 from django.utils.translation import gettext
 
 # Create your models here.
@@ -27,7 +32,7 @@ class CustomUserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 
-class User(AbstractBaseUser):
+class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=255, unique=True)
     name = models.CharField(max_length=255, default="")
     email = models.EmailField()
@@ -37,6 +42,8 @@ class User(AbstractBaseUser):
     organization = models.CharField(max_length=255)
     reputation = models.IntegerField(default=0)
     is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
 
     objects = CustomUserManager()
 
