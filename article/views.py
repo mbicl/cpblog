@@ -1,7 +1,9 @@
 from django.views.generic import ListView, DetailView, CreateView
-from .models import Article
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from .forms import ArticleCreateForm
+from .models import Article
 
 
 class ArticlesListView(ListView):
@@ -20,7 +22,8 @@ class ArticleDetailedView(DetailView):
     fields = "__all__"
 
 
-class ArticleCreateView(CreateView):
+class ArticleCreateView(LoginRequiredMixin, CreateView):
+    login_url = reverse_lazy("login")
     model = Article
 
     def get(self, r):

@@ -26,9 +26,9 @@ SECRET_KEY = "django-insecure-c%h-c3(r$tr6%nvkl26u=%0&yjvg*p13o(9hxmdu9_y#54vto4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["mbicl.jprq.live"]
 
-
+CSRF_TRUSTED_ORIGINS = ["https://mbicl.jprq.live"]
 # Application definition
 
 INSTALLED_APPS = [
