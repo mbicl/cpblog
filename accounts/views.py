@@ -2,6 +2,7 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import logout
 from django.contrib import messages
+from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from django.shortcuts import render, redirect
@@ -28,12 +29,12 @@ class SignUpView(CreateView):
     success_url = reverse_lazy("login")
 
 
-class UserProfileView(LoginRequiredMixin, CreateView):
-    login_url = reverse_lazy("login")
-    template_name = "registration/profile.html"
-    context_object_name = "user"
+class UserProfileView(CreateView):
     model = User
-    fields = "__all__"
+
+    def get(self, r, username) -> HttpResponse:
+        user = self.model.objects.get(username=username)
+        return render(r, "registration/profile.html", {"user": user})
 
 
 class EditUserView(LoginRequiredMixin, CreateView):

@@ -7,6 +7,15 @@
     <title>Document</title>
 </head>
 <body>
-    Articles list
+    {% for article in articles %}
+        <div class="article-list" style="margin:20px; padding:10px; border:1px solid black;">
+            <h3><a href="{% url 'article_detail' article.pk %}">{{article.title}}</a></h3>
+            <h5>
+                {{article.created_time | date:'Y-m-d H:i'}}
+                {{article.reputation}}
+                <a href="{% url 'user_profile' article.owner.username %}">{{article.owner}}</a>
+            </h5>
+        </div>
+    {% endfor %}
 </body>
 </html>
