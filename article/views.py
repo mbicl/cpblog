@@ -20,15 +20,11 @@ class ArticlesListView(ListView):
     model = Article
     context_object_name = "articles"
 
-    def get(self, r):
-        return super().get(r)
 
-
-class ArticleDetailedView(DetailView):
+class ArticleDetailView(DetailView):
     model = Article
     template_name = "articles/article.html"
     context_object_name = "article"
-    fields = "__all__"
 
 
 class ArticleCreateView(LoginRequiredMixin, CreateView):
