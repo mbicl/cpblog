@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from .forms import ArticleCreateForm
 from .models import Article
+from main.models import Category
 from django.views.generic import (
     ListView,
     DetailView,
@@ -16,14 +17,20 @@ from django.views.generic import (
 
 
 class ArticlesListView(ListView):
-    template_name = "articles/articles_list.html"
     model = Article
+    template_name = "articles/articles_list.html"
     context_object_name = "articles"
+    # def get(self, r):
+    #     print(r.GET)
+    #     categories = Category.objects.filter(name__in=list(r.GET.keys()))
+    #     articles = Article.objects.all().filter(categories__in=categories)
+    #     print(r.GET.keys())
+    #     return render(r, "articles/articles_list.html", {"articles": articles})
 
 
 class ArticleDetailView(DetailView):
     model = Article
-    template_name = "articles/article.html"
+    template_name = "articles/article_detail.html"
     context_object_name = "article"
 
 

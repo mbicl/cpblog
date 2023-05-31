@@ -1,23 +1,54 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/article.css' %}" type="text/css">
     <title>{% block title %}{% endblock title %}</title>
 </head>
+
 <body>
-    <header>
-        //TODO
+    <header class="header">
+        <div class="header__left">
+            <a href="{% url 'article:articles_list' %}" class="header__logo"> CPBlog.uz </a>
+        </div>
+        
+        <div class="header__center">
+            <a href="{% url 'article:articles_list' %}" class="header__articles"> Maqolalar </a>
+            <a href="{% url 'problem:problems_list' %}" class="header__problems"> Masalalar </a>
+        </div>
+        
+        <div class="header__right">
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'article:article_create' %}" class="header__create">Create</a>
+                <a href="{% url 'accounts:user_profile' request.user.username %}" class="header__profile">Profile</a>
+            {% else %}
+                <a href="{% url 'accounts:login' %}">Login</a>
+            {% endif %}
+        </div>
     </header>
-    <nav>
-        //TODO
+
+    <nav class="navbar">
+        <form action="/" method="get">
+            {% for category in categories %}
+                <div class="nav_items">
+                    <input type="checkbox" name="{{category.name}}"> 
+                    <label for="{{category.name}}">{{category.name}}</label>
+                </div>
+            {% endfor %}
+            <button type="submit">OK</button>
+        </form>
     </nav>
 
     <div class="content">
         {% block content %}
         {% endblock content %}
     </div>
-    
+
+    <div class="clear"></div>
 </body>
 </html>

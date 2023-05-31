@@ -7,6 +7,8 @@ from .views import (
     ProblemDeleteView,
 )
 
+app_name = "problem"
+
 urlpatterns = [
     path("", ProblemListView.as_view(), name="problems_list"),
     path("<int:pk>/", ProblemDetailView.as_view(), name="problem_detail"),

@@ -7,6 +7,8 @@ from .views import (
     ArticleDeleteView,
 )
 
+app_name = "article"
+
 urlpatterns = [
     path("", ArticlesListView.as_view(), name="articles_list"),
     path("<int:pk>/", ArticleDetailView.as_view(), name="article_detail"),
