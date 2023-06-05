@@ -7,7 +7,7 @@
     <h5>
         {{article.created_time | date:'Y-m-d H:i'}}
         {{article.reputation}}
-        <a href="{% url 'user_profile' article.owner.username %}">{{article.owner}}</a>
+        <a href="{% url 'accounts:user_profile' article.owner.username %}">{{article.owner}}</a>
     </h5>
     <article>{{article.body}}</article>
 {% endblock content %}

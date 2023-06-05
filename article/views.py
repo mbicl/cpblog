@@ -7,6 +7,7 @@ from django.urls import reverse_lazy
 from .forms import ArticleCreateForm
 from .models import Article
 from main.models import Category
+from django.views import View
 from django.views.generic import (
     ListView,
     DetailView,
@@ -16,16 +17,16 @@ from django.views.generic import (
 )
 
 
-class ArticlesListView(ListView):
-    model = Article
-    template_name = "articles/articles_list.html"
-    context_object_name = "articles"
-    # def get(self, r):
-    #     print(r.GET)
-    #     categories = Category.objects.filter(name__in=list(r.GET.keys()))
-    #     articles = Article.objects.all().filter(categories__in=categories)
-    #     print(r.GET.keys())
-    #     return render(r, "articles/articles_list.html", {"articles": articles})
+class ArticlesListView(View):
+    def get(self, request):
+        articles = Article.objects.all()
+        category = request.GET.get("category")
+        # print(category)
+        if category:
+            category = list(category.split(","))
+            for i in category:
+                articles = articles.filter(categories__name=i)
+        return render(request, "articles/articles_list.html", {"articles": articles})
 
 
 class ArticleDetailView(DetailView):
@@ -48,7 +49,7 @@ class ArticleCreateView(LoginRequiredMixin, CreateView):
             article = form.save(commit=False)
             article.owner = r.user
             article.save()
-            return redirect("article_detail", pk=article.pk)
+            return redirect("article:article_detail", pk=article.pk)
 
 
 class ArticleEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):

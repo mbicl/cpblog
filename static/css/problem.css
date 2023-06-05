@@ -28,16 +28,15 @@ body a {
     justify-content: center;
 }
 .flex-right {
-    flex-grow: 2;
+    flex-grow: 10;
     display: flex;
     justify-content: center;
 }
 /* HEADER */
 header {
-    position: fixed;
+    position: sticky;
     top: 0;
-    width: 100%;
-    background-color: #323437;
+    height: 20%;
 }
 .header__item {
     position: relative;
@@ -62,7 +61,7 @@ header {
     border: 1px solid #ffad33;
     padding: 7px;
     border-radius: 20px 0 0 20px;
-    background-color: #606060;
+    background-color: #323437;
     display: inline-block;
 }
 .header__articles a, .header__problems a {
@@ -75,7 +74,7 @@ header {
     border: 1px solid #ffad33;
     padding: 7px;
     border-radius: 0 20px 20px 0;
-    background-color: #323437;
+    background-color: #606060;
     display: inline-block;
 }
 .header__right {
@@ -90,46 +89,27 @@ hr {
     background-color: #ffad33;
     z-index: -1;
 }
-
 /* NAVBAR */
 nav {
     /* border: 1px solid snow; */
-    position: fixed;
-    top: 50px;
     float: left;
-    overflow: hidden;
     width: 15%;
 }
 .category__list {
-    list-style:inside;
+    list-style: none;
 }
 .category__list__item {
-    padding: 5px;
-    font-size: 18px;
+    margin: 5px;
 }
 /* SECTION */
 
 section {
-    position: relative;
-    top: 55px;
     /* border: 1px solid red; */
-    background-color: #454545;
     float: right;
-    width: 85%;
-    z-index: -1;
-    height: auto;
+    width: 84%;
 }
 
 .clear {
     content: "";
     clear: both;
-}
-
-/* ARTICLE LIST  */
-
-.article-list {
-    background-color: #323437;
-    border-radius: 20px;
-    margin: 20px;
-    padding: 20px;
 }

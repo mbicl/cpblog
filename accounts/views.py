@@ -16,7 +16,7 @@ class Login(LoginView):
     def get_success_url(self):
         if self.request.GET.get("next"):
             return self.request.GET.get("next")
-        return reverse_lazy("articles_list")
+        return reverse_lazy("article:articles_list")
 
     def form_invalid(self, form):
         messages.error(self.request, "Invalid username or password")
@@ -26,7 +26,7 @@ class Login(LoginView):
 class SignUpView(CreateView):
     form_class = UserRegistrationForm
     template_name = "registration/signup.html"
-    success_url = reverse_lazy("login")
+    success_url = reverse_lazy("accounts:login")
 
 
 class UserProfileView(CreateView):
@@ -38,7 +38,7 @@ class UserProfileView(CreateView):
 
 
 class EditUserView(LoginRequiredMixin, CreateView):
-    login_url = reverse_lazy("login")
+    login_url = reverse_lazy("accounts:login")
 
     def get(self, r):
         form = UserEditForm(instance=r.user)
@@ -48,12 +48,12 @@ class EditUserView(LoginRequiredMixin, CreateView):
         user_form = UserEditForm(instance=r.user, data=r.POST)
         if user_form.is_valid():
             user_form.save()
-            return redirect("user_profile")
+            return redirect("accounts:user_profile")
 
 
 class LogoutView(LoginRequiredMixin, CreateView):
-    login_url = reverse_lazy("login")
+    login_url = reverse_lazy("accounts:login")
 
     def get(self, r):
         logout(request=r)
-        return redirect("articles_list")
+        return redirect("article:articles_list")

@@ -1,0 +1,64 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/problem.css' %}" type="text/css">
+    <title>{% block title %}{% endblock title %}</title>
+    <script src="https://kit.fontawesome.com/3d927a6073.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header class="flex-container">
+        <div class="flex-left header__logo header__item">
+            <a href="{% url 'article:articles_list' %}"> CPBlog.uz </a> 
+        </div>
+        <div class="flex-center">
+            <div class="header__articles header__item">
+                <a href="{% url 'article:articles_list' %}">Maqolalar</a> 
+            </div>
+            <div class="header__problems header__item">
+                <a href="{% url 'problem:problems_list' %}">Masalalar</a> 
+            </div>
+        </div>
+        <div class="flex-right">
+            {% if request.user.is_authenticated %}
+            <div class="header__right header__item">
+                <a href="{% url 'article:article_create' %}">
+                    <i class="fa-solid fa-circle-plus" style="font-size: 25px;"></i>
+                </a>
+            </div>
+            <div class="header__right header__item">
+                <a href="{% url 'accounts:user_profile' request.user.username%}">
+                    <i class="fa-solid fa-user" style="font-size: 25px;"></i>
+                </a> 
+            </div>
+            {% else %}
+                <div class="header__right header__item">
+                    <a href="{% url 'accounts:login' %}">Login</a> 
+                </div>
+            {% endif %}
+        </div>
+    </header>
+    <hr>
+    <div class="clear"></div>
+
+    <nav>
+        <ul class="category__list">
+            {% for category in categories %}
+                <li class="category__list__item">
+                    <a href="/?category={{category.name}}">{{category.name}}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+
+    <section>
+        {% block content %}
+        {% endblock content %}
+    </section>
+</body>
+</html>
