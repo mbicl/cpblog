@@ -133,3 +133,37 @@ section {
     margin: 20px;
     padding: 20px;
 }
+
+/* ARTICLE DETAIL HTML  */
+
+.article-title {
+    font-size: 25px;
+    margin: 50px 50px;
+}
+
+.article-data {
+    border-radius: 5px;
+    background-color: #323437;
+    padding: 8px;
+    margin: 5px;
+}
+
+.article-body {
+    position: relative;
+    left: 30px;
+    font-size: 18px;
+    margin: 20px;
+}
+
+/* ARTICLE EDIT */
+
+form {
+    margin: 30px;
+}
+form p, form button {
+    margin: 20px;
+}
+
+.danger, .danger a {
+    color: rgb(190, 61, 61) !important;
+}

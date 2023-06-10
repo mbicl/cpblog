@@ -1,9 +1,9 @@
 {% extends 'articles/article_base.html' %}
 
-{% block title %}Edit{% endblock title %}
+{% block title %}Maqolani tahrirlash{% endblock title %}
 
 {% block content %}
-    <h3>Edit post</h3>
+    <h3 class="article-title">Maqolani tahrirlash</h3>
     <form method="post"> {% csrf_token %}
         {{form.as_p}}
         <button type="submit">Saqlash</button>

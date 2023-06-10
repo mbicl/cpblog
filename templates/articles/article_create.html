@@ -1,11 +1,11 @@
 {% extends 'articles/article_base.html' %}
 
-{% block title %}Create{% endblock title %}
+{% block title %}Maqola yaratish{% endblock title %}
 
 {% block content %}
-    <h3>Creating new article</h3>
+    <h3 class="article-title">Yangi maqola yaratish</h3>
     <form method="post"> {% csrf_token %}
         {{form.as_p}}
-        <button type="submit">Save</button>
+        <button type="submit">Saqlash</button>
     </form>
 {% endblock content%}

@@ -3,7 +3,7 @@
 {% block title %}Delete{% endblock title %}
 
 {% block content %}
-    <h3>{{article.title}} postini o'chirishingizni tasdiqlang.</h3>
+    <h3 class="article-title danger">{{article.title}} postini o'chirishingizni tasdiqlang.</h3>
     <form method="post">{% csrf_token %}
         <button type="submit"> Tasdiqlayman </button>
     </form>

@@ -28,15 +28,16 @@ body a {
     justify-content: center;
 }
 .flex-right {
-    flex-grow: 10;
+    flex-grow: 2;
     display: flex;
     justify-content: center;
 }
 /* HEADER */
 header {
-    position: sticky;
+    position: fixed;
     top: 0;
-    height: 20%;
+    width: 100%;
+    background-color: #323437;
 }
 .header__item {
     position: relative;
@@ -89,27 +90,80 @@ hr {
     background-color: #ffad33;
     z-index: -1;
 }
+
 /* NAVBAR */
 nav {
     /* border: 1px solid snow; */
+    position: fixed;
+    top: 50px;
     float: left;
+    overflow: hidden;
     width: 15%;
 }
 .category__list {
-    list-style: none;
+    list-style:inside;
 }
 .category__list__item {
-    margin: 5px;
+    padding: 5px;
+    font-size: 18px;
 }
 /* SECTION */
 
 section {
+    position: relative;
+    top: 55px;
     /* border: 1px solid red; */
+    background-color: #454545;
     float: right;
-    width: 84%;
+    width: 85%;
+    z-index: -1;
+    height: auto;
 }
 
 .clear {
     content: "";
     clear: both;
+}
+
+/* PROBLEM LIST  */
+
+.problem-list {
+    background-color: #323437;
+    border-radius: 20px;
+    margin: 20px;
+    padding: 20px;
+}
+
+/* problem DETAIL HTML  */
+
+.problem-title {
+    font-size: 25px;
+    margin: 50px 50px;
+}
+
+.problem-data {
+    border-radius: 5px;
+    background-color: #323437;
+    padding: 8px;
+    margin: 5px;
+}
+
+.problem-body {
+    position: relative;
+    left: 30px;
+    font-size: 18px;
+    margin: 20px;
+}
+
+/* problem EDIT */
+
+form {
+    margin: 30px;
+}
+form p, form button {
+    margin: 20px;
+}
+
+.danger, .danger a {
+    color: rgb(190, 61, 61) !important;
 }

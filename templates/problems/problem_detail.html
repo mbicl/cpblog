@@ -1,14 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detail</title>
-</head>
-<body>
-    <h3>{{problem.title}}</h3>
-    <h5>{{problem.difficulty}} {{problem.reputation}} <a href="{{problem.url}}">link</a> {{problem.owner}}</h5>
-    <p>{{problem.description}}</p>
-</body>
-</html>
+{% extends 'problems/problem_base.html' %}
+
+{% block title %} {{ problem.title | truncatewords:3 }} {% endblock title %}
+
+{% block content %}
+    <h5 style="margin: 15px 15px 15px 30px; float: right;">
+        {% if request.user.username == problem.owner.username or request.user.is_superuser %}
+            <span class="problem-data">
+                <a href="{% url 'problem:problem_edit' problem.pk %}">
+                    Tahrirlash
+                </a>
+            </span>
+            {% if problem.reputation < 10 %}
+                <span class="problem-data danger">
+                    <a href="{% url 'problem:problem_delete' problem.pk %}">
+                        O'chirish
+                    </a>
+                </span>
+            {% endif %}
+        {% endif %}
+        <span class="problem-data">{{problem.created_time | date:'Y-m-d H:i'}}</span>
+        <span class="problem-data">
+            <i class="fa-solid fa-eye"></i>
+            <span style="margin-left:5px;">{{problem.reputation}}</span>
+        </span>
+        <span class="problem-data">
+            <span>Ulashdi:&nbsp</span>
+            <a href="{% url 'accounts:user_profile' problem.owner.username %}">
+                {{problem.owner.username}}
+            </a>
+        </span>
+    </h5>
+    <h3 class="problem-title">
+        <a href="{{problem.url}}">{{problem.title}}</a>
+    </h3>
+    
+    <article class="problem-body">
+        <h5 style="font-size: 18px;">
+            <a href="{{problem.url}}">Masalaga o'tish</a>
+        </h5>
+        {{problem.description}}
+    </article>
+{% endblock content %}

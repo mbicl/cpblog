@@ -9,7 +9,6 @@ from .models import Article
 from main.models import Category
 from django.views import View
 from django.views.generic import (
-    ListView,
     DetailView,
     CreateView,
     DeleteView,
@@ -34,9 +33,15 @@ class ArticleDetailView(DetailView):
     template_name = "articles/article_detail.html"
     context_object_name = "article"
 
+    def get_object(self, queryset=None):
+        article = super().get_object(queryset)
+        article.reputation += 1
+        article.save()
+        return article
+
 
 class ArticleCreateView(LoginRequiredMixin, CreateView):
-    login_url = reverse_lazy("login")
+    login_url = reverse_lazy("accounts:login")
     model = Article
 
     def get(self, r):
@@ -55,23 +60,31 @@ class ArticleCreateView(LoginRequiredMixin, CreateView):
 class ArticleEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Article
     fields = ("title", "body")
-    login_url = reverse_lazy("login")
+    login_url = reverse_lazy("accounts:login")
     template_name = "articles/article_edit.html"
 
     def get_success_url(self):
-        return reverse_lazy("article_detail", kwargs={"pk": self.get_object().pk})
+        return reverse_lazy(
+            "article:article_detail", kwargs={"pk": self.get_object().pk}
+        )
 
     def test_func(self):
-        return self.request.user.username == self.get_object().owner.username
+        return (
+            self.request.user.username == self.get_object().owner.username
+            or self.request.user.is_superuser
+        )
 
 
 class ArticleDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Article
-    login_url = reverse_lazy("login")
+    login_url = reverse_lazy("accounts:login")
     template_name = "articles/article_delete.html"
 
     def get_success_url(self):
-        return reverse_lazy("articles_list")
+        return reverse_lazy("article:articles_list")
 
     def test_func(self):
-        return self.request.user.username == self.get_object().owner.username
+        return (
+            self.request.user.username == self.get_object().owner.username
+            or self.request.user.is_superuser
+        )

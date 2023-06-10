@@ -4,9 +4,25 @@
 
 {% block content %}
     {% for problem in problems %}
-        <div style="margin:20px; padding:10px; border:1px solid black;">
-            <h3>{{problem.title}}</h3>
-            <h5>{{problem.difficulty}} {{problem.reputation}} <a href="{{problem.url}}">link</a></h5>
+        <div class="problem-list">
+            <div style="float:left; width: 30%;">
+                <h3>
+                    <a href="{% url 'problem:problem_detail' problem.pk %}">
+                        {{problem.title}}
+                    </a>
+                </h3>
+                <h5>
+                    {{problem.created_time | date:'Y-m-d H:i'}}
+                    {{problem.reputation}}
+                    <a href="{% url 'accounts:user_profile' problem.owner.username %}">
+                        {{problem.owner.username}}
+                    </a>
+                </h5>
+            </div>
+            <div style="float:right; width: 68%;">
+                {{problem.description | truncatechars:500}}
+            </div>
+            <div class="clear"></div>
         </div>
     {% endfor %}
 {% endblock content %}

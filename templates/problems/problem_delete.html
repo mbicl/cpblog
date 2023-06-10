@@ -1,15 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=\, initial-scale=1.0">
-    <title>Delete</title>
-</head>
-<body>
-    <h3>{{problem.title}} masalasini o'chirishingizni tasdiqlang</h3>
+{% extends 'problems/problem_base.html' %}
+
+{% block title %}Delete{% endblock title %}
+
+{% block content %}
+    <h3 class="problem-title danger">{{problem.title}} masalasini o'chirishingizni tasdiqlang.</h3>
     <form method="post">{% csrf_token %}
-        <button type="submit">Tasdiqlayman</button>
+        <button type="submit"> Tasdiqlayman </button>
     </form>
-</body>
-</html>
+{% endblock content %}
