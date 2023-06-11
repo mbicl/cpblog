@@ -1,10 +1,76 @@
-{% extends 'base.html' %}
-
-{% block title %}Ro'yxatdan o'tish{% endblock title %}
-
+{% comment %} {% extends 'articles/article_base.html' %}
+{% block title %}register{% endblock title %}
 {% block content %}
-    <form method="post"> {% csrf_token %}
-        {{form.as_p}}
-        <button type="submit">Ro'yxatdan o'tish</button>
-    </form>
-{% endblock content %}
+<form method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">Register</button>
+</form>
+{% endblock content %} {% endcomment %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/registration.css' %}">
+    <title>Ro'yxatdan o'tish</title>
+</head>
+<body>
+    <div class="wrapper-register">
+        <div class="form-box login">
+            <h2>Ro'yxatdan o'tish</h2>
+            <form method="post">
+                {% csrf_token %}
+                <div class="input-box">
+                    <label for="id_username"> Foydalanuvchi nomi </label>
+                    {{form.username}}
+                    {% if form.username.errors %}
+                        <label for="id_username" style="color: #f46363;"> Foydalanuvchi nomi oldindan mavjud </label>
+                    {% endif %}
+                </div>
+                <div class="input-box">
+                    <label for="id_name"> Ism </label>
+                    {{form.name}}
+                </div>
+                <div class="input-box">
+                    <label for="id_email"> E-mail </label>
+                    {{form.email}}
+                    {% if form.email.errors %}
+                        <label for="id_email" style="color: #f46363;"> Bu email oldindan mavjud </label>
+                    {% endif %}
+                </div>
+                <div class="input-box">
+                    <label for="id_password1"> Parol </label>
+                    {{form.password1}}
+                    {% if form.password1.errors %}
+                        {% for error in form.password1.errors %}
+                            <div class="password-error">
+                                {{error}}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                
+                <div class="input-box">
+                    <label for="id_passwor2"> Parolni takrorlang </label>
+                    {{form.password2}}
+                    {% if form.password2.errors %}
+                        {% for error in form.password2.errors %}
+                            <div class="password-error">
+                                {{error}}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                
+
+                <button type="submit" class="btn">Ro'yxatdan o'tish</button>
+            </form>
+        </div>
+    </div>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

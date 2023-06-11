@@ -9,8 +9,12 @@ body {
     box-sizing: border-box;
 }
 body a {
-    color: lightgreen;
+    color: #cfcfcf;
     text-decoration: none;
+}
+body a:hover {
+    color: #ffad33;
+    text-decoration: underline;
 }
 
 /* HEADER FLEX  */
@@ -153,6 +157,8 @@ section {
     left: 30px;
     font-size: 18px;
     margin: 20px;
+    overflow: auto;
+    padding: 0 50px 0 0;
 }
 
 /* ARTICLE EDIT */

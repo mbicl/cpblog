@@ -1,12 +1,8 @@
-from typing import Any, Optional
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.db import models
-from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from .forms import ArticleCreateForm
 from .models import Article
-from main.models import Category
 from django.views import View
 from django.views.generic import (
     DetailView,

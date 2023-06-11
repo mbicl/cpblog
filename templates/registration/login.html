@@ -1,10 +1,58 @@
-{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/registration.css' %}">
+    <title>Login</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="form-box login">
+            <h2>Login</h2>
+            <form method="post">
+                {% csrf_token %}
+                <div class="input-box">
+                    <label for="id_username"> Foydalanuvchi nomi </label>
+                    <span class="icon">
+                        <ion-icon name="person"></ion-icon>
+                    </span>
+                    {{form.username}}
+                </div>
 
-{% block title %}Kirish{% endblock title %}
+                <div class="input-box">
+                    <label for="id_password"> Parol </label>
+                    <span class="icon">
+                        <ion-icon name="lock-closed"></ion-icon>
+                    </span>
+                    {{form.password}}
+                    {% if form.errors %}
+                        <div class="password-error">
+                            Foydalanuvchi nomi yoki parol xato
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="remember-forgot" style="float:right;">
+                    <a href="#" >Parolni unutdingizmi?</a>
+                </div>
 
-{% block content %}
-    <form method="post"> {% csrf_token %}
-        {{form.as_p}}
-        <button type="submit">Kirish</button>
-    </form>
-{% endblock content %}
+                <button type="submit" class="btn">Kirish</button>
+
+                <div class="login-register">
+                    <p>
+                        Hisobingiz yo'qmi?
+                        <a href="{% url 'accounts:register' %}">
+                            Yaratish
+                        </a> 
+                    </p>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

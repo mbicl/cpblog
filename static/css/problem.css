@@ -9,8 +9,12 @@ body {
     box-sizing: border-box;
 }
 body a {
-    color: lightgreen;
+    color: #cfcfcf;
     text-decoration: none;
+}
+body a:hover {
+    color: #ffad33;
+    text-decoration: underline;
 }
 
 /* HEADER FLEX  */

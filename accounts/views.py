@@ -2,9 +2,8 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import logout
 from django.contrib import messages
-from django.http import HttpResponse
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView, UpdateView
 from django.shortcuts import render, redirect
 from .forms import UserRegistrationForm, UserEditForm
 from .models import User
@@ -29,15 +28,15 @@ class SignUpView(CreateView):
     success_url = reverse_lazy("accounts:login")
 
 
-class UserProfileView(CreateView):
+class UserProfileView(DetailView):
     model = User
 
-    def get(self, r, username) -> HttpResponse:
+    def get(self, r, username):
         user = self.model.objects.get(username=username)
         return render(r, "registration/profile.html", {"user": user})
 
 
-class EditUserView(LoginRequiredMixin, CreateView):
+class EditUserView(LoginRequiredMixin, UpdateView):
     login_url = reverse_lazy("accounts:login")
 
     def get(self, r):
@@ -48,10 +47,10 @@ class EditUserView(LoginRequiredMixin, CreateView):
         user_form = UserEditForm(instance=r.user, data=r.POST)
         if user_form.is_valid():
             user_form.save()
-            return redirect("accounts:user_profile")
+            return redirect("accounts:user_profile", username=r.user.username)
 
 
-class LogoutView(LoginRequiredMixin, CreateView):
+class LogoutView(LoginRequiredMixin, DetailView):
     login_url = reverse_lazy("accounts:login")
 
     def get(self, r):
