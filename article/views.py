@@ -35,6 +35,14 @@ class ArticleDetailView(DetailView):
         article.save()
         return article
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.method == "POST":
+            plus = self.request.POST.get("plus")
+            minus = self.request.POST.get("minus")
+
+        return context
+
 
 class ArticleCreateView(LoginRequiredMixin, CreateView):
     login_url = reverse_lazy("accounts:login")

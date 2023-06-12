@@ -1,6 +1,7 @@
 from django.db import models
 from accounts.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
+from ckeditor_uploader.fields import RichTextUploadingField
 
 # Create your models here.
 
@@ -9,7 +10,7 @@ class Problem(models.Model):
     title = models.CharField(max_length=255)
     url = models.URLField()
     reputation = models.IntegerField(default=0)
-    description = models.TextField()
+    description = RichTextUploadingField()
     difficulty = models.IntegerField(
         default=1, validators=(MinValueValidator(1), MaxValueValidator(100))
     )

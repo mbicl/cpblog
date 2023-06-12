@@ -31,5 +31,11 @@
         </span>
     </h5>
     <h3 class="article-title">{{article.title}}</h3>
-    <article class="article-body">{{article.body}}</article>
-{% endblock content %}
+    <article class="article-body">{{article.body|safe}}</article>
+{% endblock content %}  
+
+{% block script %}
+    <script type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+{% endblock script %}

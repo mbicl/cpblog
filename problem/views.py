@@ -1,6 +1,4 @@
-from typing import Any, Optional
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.db import models
 from django.urls import reverse_lazy, reverse
 from django.shortcuts import render, redirect
 from django.views.generic import (
@@ -61,7 +59,10 @@ class ProblemEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return reverse("problem:problem_detail", kwargs={"pk": self.get_object().pk})
 
     def test_func(self):
-        return self.request.user.username == self.get_object().owner.username
+        return (
+            self.request.user.username == self.get_object().owner.username
+            or self.request.user.is_superuser
+        )
 
 
 class ProblemDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -71,4 +72,7 @@ class ProblemDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     success_url = reverse_lazy("problem:problems_list")
 
     def test_func(self):
-        return self.request.user.username == self.get_object().owner.username
+        return (
+            self.request.user.username == self.get_object().owner.username
+            or self.request.user.is_superuser
+        )

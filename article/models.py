@@ -1,13 +1,14 @@
 from django.db import models
 from accounts.models import User
 from main.models import Category
+from ckeditor_uploader.fields import RichTextUploadingField
 
 # Create your models here.
 
 
 class Article(models.Model):
     title = models.CharField(max_length=255)
-    body = models.TextField()
+    body = RichTextUploadingField()
     reputation = models.IntegerField(default=0)
     is_active = models.BooleanField(default=True)
     owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)

@@ -6,6 +6,7 @@
     <h3 class="problem-title">Yangi masala qo'shish</h3>
     <form method="post"> {% csrf_token %}
         {{form.as_p}}
+        {{form.media}}
         <button type="submit">Saqlash</button>
     </form>
 {% endblock content%}
