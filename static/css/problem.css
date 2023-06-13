@@ -171,3 +171,25 @@ form p, form button {
 .danger, .danger a {
     color: rgb(190, 61, 61) !important;
 }
+
+.vote-box {
+    margin: 30px;
+    position: relative;
+    left: 50px;
+}
+.vote {
+    display: inline-block;
+    margin: 5px;
+    padding: 0;
+    font-size: 20px;
+}
+
+.vote button {
+    border: none;
+    background: none;
+    font-size: 20px;
+    height: auto;
+    width: auto;
+    padding: 0;
+    margin: 0;
+}

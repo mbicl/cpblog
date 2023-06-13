@@ -5,6 +5,7 @@ from .views import (
     UserProfileView,
     EditUserView,
     LogoutView,
+    UsersList,
 )
 
 app_name = "accounts"
@@ -15,4 +16,5 @@ urlpatterns = [
     path("edit/", EditUserView.as_view(), name="edit_user"),
     path("logout/", LogoutView.as_view(), name="logout"),
     path("<str:username>/", UserProfileView.as_view(), name="user_profile"),
+    path("", UsersList.as_view(), name="users_list"),
 ]

@@ -29,17 +29,22 @@
                 {% if request.user.is_authenticated %}
                 <div class="header__right header__item">
                     <a href="{% url 'article:article_create' %}">
-                        <i class="fa-solid fa-circle-plus" style="font-size: 25px;"></i>
+                        <i class="fa-solid fa-circle-plus" style="font-size: 23px;"></i>
+                    </a>
+                </div>
+                <div class="header__right header__item">
+                    <a href="{% url 'accounts:users_list' %}">
+                        <i class="fa-solid fa-user-group" style="font-size: 23px;"></i>
                     </a>
                 </div>
                 <div class="header__right header__item">
                     <a href="{% url 'accounts:user_profile' request.user.username%}">
-                        <i class="fa-solid fa-circle-user" style="font-size: 25px;"></i>
+                        <i class="fa-solid fa-user" style="font-size: 23px;"></i>
                     </a> 
                 </div>
                 <div class="header__right header__item">
                     <a href="{% url 'accounts:logout' %}">
-                        <i class="fa-solid fa-right-from-bracket" style="font-size: 25px;"></i>
+                        <i class="fa-solid fa-right-from-bracket" style="font-size: 23px;"></i>
                     </a> 
                 </div>
                 {% else %}

@@ -1,4 +1,5 @@
 {% extends 'articles/article_base.html' %}
+{% load hitcount_tags %}
 
 {% block title %}{{article.title | truncatewords:3}}{% endblock title %}
 
@@ -21,7 +22,7 @@
         <span class="article-data">{{article.created_time | date:'Y-m-d H:i'}}</span>
         <span class="article-data">
             <i class="fa-solid fa-eye"></i>
-            <span style="margin-left:5px;">{{article.reputation}}</span>
+            <span style="margin-left:5px;">{% get_hit_count for article %}</span>
         </span>
         <span class="article-data">
             <span>Muallif:&nbsp</span>
@@ -32,6 +33,27 @@
     </h5>
     <h3 class="article-title">{{article.title}}</h3>
     <article class="article-body">{{article.body|safe}}</article>
+    <div class="vote-box">
+        <form method="post" class="vote">
+            {% csrf_token %}
+            <button name="plus" value="plus" style="color: rgba(144, 238, 144, 0.8);" type="submit"><i class="fa-solid fa-circle-chevron-up"></i></button>
+        </form>
+        <span class="vote"
+            style="color:
+            {% if article.reputation < 0 %}
+                rgb(220, 105, 105); 
+            {% elif article.reputation == 0 %}
+                #cfcfcf
+            {% else %}
+                rgba(144, 238, 144, 0.8);
+            {% endif %}">
+            {{article.reputation}}
+        </span>
+        <form method="post" class="vote">
+            {% csrf_token %}
+            <button name="minus" value="minus" style="color: rgb(220, 105, 105);" type="submit"><i class="fa-solid fa-circle-chevron-down"></i></button>
+        </form>
+    </div>
 {% endblock content %}  
 
 {% block script %}

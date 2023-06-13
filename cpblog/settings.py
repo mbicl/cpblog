@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "problem",
     "main",
     "ckeditor",
+    "hitcount",
 ]
 
 MIDDLEWARE = [

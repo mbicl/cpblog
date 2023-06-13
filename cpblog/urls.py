@@ -4,8 +4,9 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
+    path("hitcount/", include(("hitcount.urls", "hitcount"), namespace="hitcount")),
     path("admin/", admin.site.urls),
-    path("user/", include("accounts.urls")),
+    path("users/", include("accounts.urls")),
     path("", include("article.urls")),
     path("problems/", include("problem.urls")),
     path("ckeditor/", include("ckeditor_uploader.urls")),

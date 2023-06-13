@@ -1,5 +1,6 @@
 {% extends 'articles/article_base.html' %}
 {% load static %}
+{% load hitcount_tags %}
 
 {% block title %}Maqolalar{% endblock title %}
 
@@ -14,7 +15,7 @@
                 </h3>
                 <h5>
                     {{article.created_time | date:'Y-m-d H:i'}}
-                    {{article.reputation}}
+                    {% get_hit_count for article %}
                     <a href="{% url 'accounts:user_profile' article.owner.username %}">
                         {{article.owner}}
                     </a>

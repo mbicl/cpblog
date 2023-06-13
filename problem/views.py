@@ -8,6 +8,7 @@ from django.views.generic import (
     UpdateView,
     DeleteView,
 )
+from hitcount.views import HitCountDetailView
 from .models import Problem
 from .forms import ProblemCreateForm
 
@@ -20,16 +21,30 @@ class ProblemListView(ListView):
     template_name = "problems/problem_list.html"
 
 
-class ProblemDetailView(DetailView):
+class ProblemDetailView(UpdateView, HitCountDetailView):
     model = Problem
     context_object_name = "problem"
     template_name = "problems/problem_detail.html"
+    fields = ["reputation"]
+    count_hit = True
 
-    def get_object(self, queryset=None):
-        problem = super().get_object(queryset)
-        problem.reputation += 1
-        problem.save()
-        return problem
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.method == "POST":
+            print(self.request.POST)
+            plus = self.request.POST.get("plus")
+            minus = self.request.POST.get("minus")
+            if minus:
+                problem = self.get_object()
+                problem.reputation -= 1
+                # problem.owner.reputation -= 1
+                problem.save()
+            if plus:
+                problem = self.get_object()
+                problem.reputation += 1
+                # problem.owner.reputation += 1
+                problem.save()
+        return context
 
 
 class ProblemCreateView(LoginRequiredMixin, CreateView):

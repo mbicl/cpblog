@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import logout
 from django.contrib import messages
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, UpdateView
+from django.views.generic import CreateView, DetailView, UpdateView, ListView
 from django.shortcuts import render, redirect
 from .forms import UserRegistrationForm, UserEditForm
 from .models import User
@@ -56,3 +56,11 @@ class LogoutView(LoginRequiredMixin, DetailView):
     def get(self, r):
         logout(request=r)
         return redirect("article:articles_list")
+
+
+class UsersList(ListView):
+    model = User
+
+    def get(self, r):
+        users = self.model.objects.order_by("-reputation").all()
+        return render(r, "registration/users_list.html", {"users": users})

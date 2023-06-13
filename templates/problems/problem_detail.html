@@ -1,4 +1,5 @@
 {% extends 'problems/problem_base.html' %}
+{% load hitcount_tags %}
 
 {% block title %} {{ problem.title | truncatewords:3 }} {% endblock title %}
 
@@ -21,7 +22,7 @@
         <span class="problem-data">{{problem.created_time | date:'Y-m-d H:i'}}</span>
         <span class="problem-data">
             <i class="fa-solid fa-eye"></i>
-            <span style="margin-left:5px;">{{problem.reputation}}</span>
+            <span style="margin-left:5px;">{% get_hit_count for problem %}</span>
         </span>
         <span class="problem-data">
             <span>Ulashdi:&nbsp</span>
@@ -38,6 +39,27 @@
         <h5 style="font-size: 18px;">
             <a href="{{problem.url}}">Masalaga o'tish</a>
         </h5>
-        {{problem.description}}
+        {{problem.description|safe}}
     </article>
+    <div class="vote-box">
+        <form method="post" class="vote">
+            {% csrf_token %}
+            <button name="plus" value="plus" style="color: rgba(144, 238, 144, 0.8);" type="submit"><i class="fa-solid fa-circle-chevron-up"></i></button>
+        </form>
+        <span class="vote"
+            style="color:
+            {% if problem.reputation < 0 %}
+                rgb(220, 105, 105); 
+            {% elif problem.reputation == 0 %}
+                #cfcfcf
+            {% else %}
+                rgba(144, 238, 144, 0.8);
+            {% endif %}">
+            {{problem.reputation}}
+        </span>
+        <form method="post" class="vote">
+            {% csrf_token %}
+            <button name="minus" value="minus" style="color: rgb(220, 105, 105);" type="submit"><i class="fa-solid fa-circle-chevron-down"></i></button>
+        </form>
+    </div>
 {% endblock content %}

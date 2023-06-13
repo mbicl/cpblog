@@ -1,4 +1,4 @@
-{% extends 'articles/article_base.html' %}
+{% extends 'registration/register_base.html' %}
 
 {% block title %}{{user.name}}{% endblock title %}
 
@@ -34,5 +34,6 @@
     <div class="line"> Davlat: <span class="right">{{user.country}}</span> </div>
     <div class="line"> Shahar: <span class="right">{{user.city}}</span> </div>
     <div class="line"> Muassasa: <span class="right">{{user.organization}}</span> </div>
+    <div class="line"> Reputation: <span class="right">{{user.reputation}}</span> </div>
 </div>
 {% endblock content %}

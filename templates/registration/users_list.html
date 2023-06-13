@@ -1,0 +1,25 @@
+{% extends 'registration/register_base.html' %}
+{% load static %}
+
+{% block title %} Foydalanuvchilar {% endblock title %}
+
+{% block content %}
+    {% for user in users %}
+        <div class="article-list">
+            <div style="float:left; width: 30%;">
+                <h3>
+                    <a href="{% url 'accounts:user_profile' user.username %}">
+                        {{user.name}}
+                    </a>
+                </h3>
+                <h5>
+                    {{user.reputation}}
+                    <a href="{% url 'accounts:user_profile' user.username %}">
+                        {{user.username}}
+                    </a>
+                </h5>
+            </div>
+            <div class="clear"></div>
+        </div>
+    {% endfor %}
+{% endblock content %}

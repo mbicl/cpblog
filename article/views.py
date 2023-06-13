@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from .forms import ArticleCreateForm
 from .models import Article
+from hitcount.views import HitCountDetailView
 from django.views import View
 from django.views.generic import (
     DetailView,
@@ -24,22 +25,29 @@ class ArticlesListView(View):
         return render(request, "articles/articles_list.html", {"articles": articles})
 
 
-class ArticleDetailView(DetailView):
+class ArticleDetailView(UpdateView, HitCountDetailView):
     model = Article
     template_name = "articles/article_detail.html"
     context_object_name = "article"
-
-    def get_object(self, queryset=None):
-        article = super().get_object(queryset)
-        article.reputation += 1
-        article.save()
-        return article
+    fields = ["reputation"]
+    count_hit = True
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if self.request.method == "POST":
+            print(self.request.POST)
             plus = self.request.POST.get("plus")
             minus = self.request.POST.get("minus")
+            if minus:
+                article = self.get_object()
+                article.reputation -= 1
+                # article.owner.reputation -= 1
+                article.save()
+            if plus:
+                article = self.get_object()
+                article.reputation += 1
+                # article.owner.reputation += 1
+                article.save()
 
         return context
 
