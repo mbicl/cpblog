@@ -20,7 +20,7 @@
                 </h5>
             </div>
             <div style="float:right; width: 68%;">
-                {{problem.description | truncatechars:500}}
+                {{problem.description | truncatechars:500 | safe}}
             </div>
             <div class="clear"></div>
         </div>
