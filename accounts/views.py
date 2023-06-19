@@ -1,7 +1,9 @@
+from typing import Any
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import logout
 from django.contrib import messages
+from django.db import models
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, UpdateView, ListView
 from django.shortcuts import render, redirect

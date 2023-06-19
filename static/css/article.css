@@ -99,9 +99,11 @@ hr {
 nav {
     /* border: 1px solid snow; */
     position: fixed;
-    top: 50px;
+    top: 65px;
+    bottom: 10px;
+    left: 0;
     float: left;
-    overflow: hidden;
+    overflow: auto;
     width: 15%;
 }
 .category__list {

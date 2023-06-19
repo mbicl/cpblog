@@ -5,8 +5,6 @@ from ckeditor_uploader.fields import RichTextUploadingField
 from hitcount.models import HitCount
 from django.contrib.contenttypes.fields import GenericRelation
 
-# Create your models here.
-
 
 class Article(models.Model):
     title = models.CharField(max_length=255)
@@ -22,8 +20,6 @@ class Article(models.Model):
         object_id_field="object_pk",
         related_query_name="hit_count_generic_relation",
     )
-    # plus_users = models.ManyToManyField(User)
-    # minus_users = models.ManyToManyField(User)
 
     class Meta:
         ordering = ["-created_time"]

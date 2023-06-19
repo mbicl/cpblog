@@ -6,7 +6,6 @@ from .models import Article
 from hitcount.views import HitCountDetailView
 from django.views import View
 from django.views.generic import (
-    DetailView,
     CreateView,
     DeleteView,
     UpdateView,
@@ -71,7 +70,7 @@ class ArticleCreateView(LoginRequiredMixin, CreateView):
 
 class ArticleEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Article
-    fields = ("title", "body")
+    fields = ("title", "body", "categories")
     login_url = reverse_lazy("accounts:login")
     template_name = "articles/article_edit.html"
 
